@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
     <title>Evrionta - Анализ Разработки: С Нуля vs. Адаптация H4U</title>
     <style>
         * {
@@ -12,286 +12,291 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
             color: #1a1a1a;
-            background: #f5f5f5;
-            padding: 40px 20px;
+            background: #ffffff;
+            padding: 0;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
         }
 
         header {
-            background: #2d3748;
+            background: #000000;
             color: white;
-            padding: 60px 50px;
-            text-align: center;
-            border-bottom: 3px solid #1a202c;
+            padding: 40px 50px;
+            border-bottom: 4px solid #1a1a1a;
         }
 
         header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         header p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            font-weight: 400;
         }
 
         header .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.85;
+            font-size: 0.95rem;
+            opacity: 0.75;
             font-weight: 300;
         }
 
         .content {
             padding: 50px;
+            background: #ffffff;
         }
 
         .section {
-            margin-bottom: 70px;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 40px;
+        }
+
+        .section:last-child {
+            border-bottom: none;
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 35px;
-            color: #1a202c;
-            border-bottom: 3px solid #2d3748;
-            padding-bottom: 12px;
+            margin-bottom: 30px;
+            color: #000000;
+            padding-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1.4rem;
         }
 
         .section-number {
-            background: #2d3748;
+            background: #000000;
             color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 4px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             flex-shrink: 0;
+            font-family: 'Courier New', monospace;
         }
 
         .comparison-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 35px;
-            margin-bottom: 45px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            margin-bottom: 40px;
+            background: #000000;
+            border: 1px solid #000000;
         }
 
         .card {
-            background: white;
-            border-radius: 8px;
-            padding: 35px;
-            border: 1px solid #e2e8f0;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: #ffffff;
+            padding: 30px;
         }
 
         .card h3 {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             margin-bottom: 25px;
-            color: #1a202c;
+            color: #000000;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
         }
 
         .card.highlight {
-            background: #f7fafc;
-            border: 2px solid #2d3748;
+            background: #f5f5f5;
         }
 
         .metric {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
-            padding: 14px;
-            background: white;
-            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
         }
 
         .metric-label {
             font-weight: 600;
-            color: #4a5568;
-            font-size: 1.05rem;
+            color: #333333;
+            font-size: 0.95rem;
         }
 
         .metric-value {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #2d3748;
-        }
-
-        .metric-value.savings {
-            color: #1a202c;
+            color: #000000;
+            font-family: 'Courier New', monospace;
         }
 
         .feature-comparison {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
+            margin-top: 20px;
             background: white;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            font-size: 1.05rem;
+            border: 1px solid #000000;
+            font-size: 0.95rem;
         }
 
         .feature-comparison thead {
-            background: #2d3748;
+            background: #000000;
             color: white;
         }
 
         .feature-comparison th,
         .feature-comparison td {
-            padding: 20px;
+            padding: 15px;
             text-align: left;
+            border: 1px solid #cccccc;
         }
 
         .feature-comparison th {
-            font-weight: 600;
-            font-size: 1.15rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .feature-comparison tbody tr {
-            border-bottom: 1px solid #e2e8f0;
-            transition: background 0.2s ease;
-        }
-
-        .feature-comparison tbody tr:hover {
-            background: #f7fafc;
+        .feature-comparison tbody tr:nth-child(even) {
+            background: #f5f5f5;
         }
 
         .status {
             display: inline-block;
-            padding: 7px 16px;
-            border-radius: 20px;
-            font-size: 0.95rem;
+            padding: 4px 10px;
+            font-size: 0.85rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border: 1px solid #000000;
+            font-family: 'Courier New', monospace;
         }
 
         .status.ready {
-            background: #e2e8f0;
-            color: #1a202c;
-            font-weight: 600;
+            background: #000000;
+            color: #ffffff;
         }
 
         .status.needs-dev {
-            background: #edf2f7;
-            color: #4a5568;
-            font-weight: 600;
+            background: #ffffff;
+            color: #000000;
         }
 
         .status.missing {
-            background: #f7fafc;
-            color: #718096;
-            font-weight: 600;
-            border: 1px solid #cbd5e0;
+            background: #f5f5f5;
+            color: #666666;
         }
 
         .savings-highlight {
-            background: #f7fafc;
-            padding: 45px;
-            border-radius: 8px;
-            margin-top: 45px;
+            background: #f5f5f5;
+            padding: 40px;
+            margin-top: 40px;
             text-align: center;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #000000;
         }
 
         .savings-highlight h3 {
-            font-size: 2.2rem;
-            color: #1a202c;
-            margin-bottom: 25px;
+            font-size: 1.6rem;
+            color: #000000;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
         .savings-numbers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-top: 35px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            margin-top: 30px;
+            background: #000000;
+            border: 1px solid #000000;
         }
 
         .savings-number {
-            background: white;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            background: #ffffff;
+            padding: 25px;
         }
 
         .savings-number .label {
-            font-size: 1rem;
-            color: #4a5568;
-            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: #666666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .savings-number .value {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #1a202c;
+            color: #000000;
+            font-family: 'Courier New', monospace;
         }
 
         .budget-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
+            margin-top: 20px;
             background: white;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #000000;
+            font-size: 0.9rem;
         }
 
         .budget-table thead {
-            background: #2d3748;
+            background: #000000;
             color: white;
         }
 
         .budget-table th,
         .budget-table td {
-            padding: 18px;
+            padding: 12px 15px;
             text-align: left;
+            border: 1px solid #cccccc;
         }
 
         .budget-table th {
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .budget-table tbody tr {
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .budget-table tbody tr:hover {
-            background: #f7fafc;
+        .budget-table tbody tr:nth-child(even) {
+            background: #f5f5f5;
         }
 
         .budget-table .total-row {
-            background: #f7fafc;
+            background: #000000;
+            color: #ffffff;
             font-weight: 700;
-            font-size: 1.15rem;
         }
 
         .budget-table .category-header {
-            background: #edf2f7;
+            background: #333333;
+            color: #ffffff;
             font-weight: 700;
-            color: #2d3748;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .team-timeline {
@@ -299,169 +304,200 @@
         }
 
         .team-phase {
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             padding: 30px;
-            background: #f7fafc;
-            border-radius: 14px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
         }
 
         .team-phase h4 {
-            font-size: 1.4rem;
-            color: #2d3748;
+            font-size: 1.2rem;
+            color: #000000;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
         .phase-marker {
-            background: #2d3748;
+            background: #000000;
             color: white;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 1rem;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
         }
 
         .role-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
             margin-top: 15px;
+            background: #cccccc;
+            border: 1px solid #cccccc;
         }
 
         .role-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 12px 15px;
             background: white;
-            border-radius: 4px;
-            border: 1px solid #e2e8f0;
         }
 
         .role-name {
             font-weight: 600;
-            color: #2d3748;
+            color: #000000;
+            font-size: 0.9rem;
         }
 
         .role-salary {
-            color: #2d3748;
-            font-weight: 600;
+            color: #000000;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
         }
 
         .timeline {
             position: relative;
-            padding: 35px 0;
+            padding: 30px 0;
         }
 
         .timeline-item {
             display: flex;
-            margin-bottom: 45px;
+            margin-bottom: 30px;
             position: relative;
         }
 
         .timeline-marker {
-            width: 70px;
-            height: 70px;
-            background: #2d3748;
-            border-radius: 4px;
+            width: 60px;
+            height: 60px;
+            background: #000000;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             flex-shrink: 0;
-            margin-right: 35px;
+            margin-right: 30px;
+            font-family: 'Courier New', monospace;
         }
 
         .timeline-content {
             flex: 1;
-            background: #f7fafc;
-            padding: 30px;
-            border-radius: 14px;
+            background: #f5f5f5;
+            padding: 25px;
+            border: 1px solid #cccccc;
         }
 
         .timeline-content h4 {
-            font-size: 1.45rem;
+            font-size: 1.2rem;
             margin-bottom: 12px;
-            color: #2d3748;
+            color: #000000;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 1rem;
         }
 
         .timeline-content p {
-            color: #4a5568;
-            margin-bottom: 10px;
-            font-size: 1.05rem;
+            color: #333333;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
 
         .monthly-breakdown {
-            margin-top: 30px;
+            margin-top: 25px;
         }
 
         .month-row {
             display: grid;
-            grid-template-columns: 100px 1fr 150px 150px;
-            gap: 20px;
-            padding: 18px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 10px;
-            align-items: center;
-            transition: background 0.2s ease;
+            grid-template-columns: 80px 1fr 120px 140px;
+            gap: 1px;
+            background: #cccccc;
+            margin-bottom: 1px;
         }
 
-        .month-row:hover {
-            background: #f7fafc;
+        .month-row > div {
+            background: white;
+            padding: 12px 15px;
         }
 
         .month-row.header {
-            background: #2d3748;
+            background: #000000;
+        }
+
+        .month-row.header > div {
+            background: #000000;
             color: white;
-            font-weight: 600;
-            font-size: 1.05rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .month-label {
-            font-weight: 600;
-            color: #2d3748;
+            font-weight: 700;
+            color: #000000;
+            font-family: 'Courier New', monospace;
         }
 
         .month-activities {
-            color: #4a5568;
+            color: #333333;
+            font-size: 0.9rem;
         }
 
         .month-team {
             text-align: center;
-            font-weight: 600;
-            color: #2d3748;
+            font-weight: 700;
+            color: #000000;
+            font-family: 'Courier New', monospace;
         }
 
         .month-cost {
             text-align: right;
             font-weight: 700;
-            color: #2d3748;
+            color: #000000;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 1024px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .savings-numbers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 1.6rem;
             }
 
             .content {
                 padding: 30px 20px;
             }
 
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-
             .month-row {
                 grid-template-columns: 1fr;
-                gap: 10px;
+                gap: 0;
             }
 
             .month-row.header {
                 display: none;
+            }
+
+            .savings-numbers {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -469,7 +505,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Evrionta Development Analysis</h1>
+            <h1>EVRIONTA DEVELOPMENT ANALYSIS</h1>
             <p>Сравнение: Разработка с Нуля vs. Адаптация Платформы H4U</p>
             <p class="subtitle">Детальная разбивка бюджета, команды и этапов реализации | Подготовлено для Thumbay Group</p>
         </header>
@@ -478,7 +514,7 @@
             <!-- Section 1: Executive Summary -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">1</span>
+                    <span class="section-number">01</span>
                     Краткое Резюме: Сравнение Затрат и Сроков
                 </h2>
 
@@ -491,15 +527,15 @@
                         </div>
                         <div class="metric">
                             <span class="metric-label">Срок до MVP</span>
-                            <span class="metric-value">18-24 месяца</span>
+                            <span class="metric-value">18-24 мес</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Размер команды</span>
-                            <span class="metric-value">35-40 человек</span>
+                            <span class="metric-value">35-40</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Уровень риска</span>
-                            <span class="metric-value">Высокий</span>
+                            <span class="metric-value">ВЫСОКИЙ</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Месячный burn rate</span>
@@ -508,34 +544,34 @@
                     </div>
 
                     <div class="card highlight">
-                        <h3>Адаптация Платформы H4U</h3>
+                        <h3>Адаптация H4U ✓</h3>
                         <div class="metric">
                             <span class="metric-label">Seed раунд</span>
-                            <span class="metric-value savings">$6.6M</span>
+                            <span class="metric-value">$6.6M</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Срок до MVP</span>
-                            <span class="metric-value savings">10-12 месяцев</span>
+                            <span class="metric-value">10-12 мес</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Размер команды</span>
-                            <span class="metric-value savings">20 человек</span>
+                            <span class="metric-value">20</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Уровень риска</span>
-                            <span class="metric-value savings">Низкий</span>
+                            <span class="metric-value">НИЗКИЙ</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">Месячный burn rate</span>
-                            <span class="metric-value savings">$550K</span>
+                            <span class="metric-value">$550K</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="savings-highlight">
                     <h3>Экономия при Использовании Платформы H4U</h3>
-                    <p style="font-size: 1.15rem; color: #4a5568; margin-bottom: 25px;">
-                        Включая AI Medical Scribe, голосовое управление для врачей, мобильные приложения, FHIR интеграцию, телемедицину
+                    <p style="font-size: 0.95rem; color: #666666; margin-bottom: 20px;">
+                        AI Medical Scribe | Голосовое управление | Мобильные приложения | FHIR интеграция | Телемедицина
                     </p>
                     <div class="savings-numbers">
                         <div class="savings-number">
@@ -544,7 +580,7 @@
                         </div>
                         <div class="savings-number">
                             <div class="label">Экономия времени</div>
-                            <div class="value">8-12 мес</div>
+                            <div class="value">8-12M</div>
                         </div>
                         <div class="savings-number">
                             <div class="label">Меньше людей</div>
@@ -561,8 +597,8 @@
             <!-- Section 2: Feature Comparison -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">2</span>
-                    Сравнение Возможностей: H4U vs. Требования Evrionta
+                    <span class="section-number">02</span>
+                    Сравнение Возможностей
                 </h2>
 
                 <table class="feature-comparison">
@@ -576,113 +612,101 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Мобильные приложения</strong></td>
-                            <td>iOS и Android приложения для пациентов</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Минимальная адаптация UI для семейной медицины</td>
+                            <td><strong>Mobile Apps</strong></td>
+                            <td>iOS и Android</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Минимальная адаптация UI</td>
                         </tr>
                         <tr>
-                            <td><strong>Веб-дашборд</strong></td>
-                            <td>Панель управления для врачей</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Добавить визуализацию семейной сети здоровья</td>
+                            <td><strong>Web Dashboard</strong></td>
+                            <td>Панель для врачей</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Семейная сеть здоровья</td>
                         </tr>
                         <tr>
                             <td><strong>FHIR Integration</strong></td>
-                            <td>Интеграция с EHR через SMART on FHIR</td>
-                            <td><span class="status ready">Работает</span></td>
-                            <td>Расширить до двунаправленной синхронизации (write-back)</td>
+                            <td>SMART on FHIR</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Write-back расширение</td>
                         </tr>
                         <tr>
-                            <td><strong>Wearables Integration</strong></td>
-                            <td>Синхронизация с Apple Health, Google Health</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Изменения не требуются</td>
+                            <td><strong>Wearables Sync</strong></td>
+                            <td>Apple Health, Google Fit</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Не требуется</td>
                         </tr>
                         <tr>
                             <td><strong>Voice Interface</strong></td>
-                            <td>Пациент: ввод симптомов голосом<br>Врач: полное голосовое управление (запрос, изменение, добавление данных пациента)</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Расширение NLP для хронических заболеваний и семейной медицины</td>
+                            <td>Пациент + врач управление</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>NLP расширение</td>
                         </tr>
                         <tr>
                             <td><strong>AI Medical Scribe</strong></td>
-                            <td>Автоматическая клиническая документация</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Минимальная адаптация для семейной медицины</td>
+                            <td>Автодокументация</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Семейная медицина</td>
                         </tr>
                         <tr>
-                            <td><strong>Telemedicine Module</strong></td>
-                            <td>Текстовый чат пациент-врач, AI-агент опционально</td>
-                            <td><span class="status ready">Production Ready</span></td>
-                            <td>Готов к использованию, включая добавление AI в чат</td>
+                            <td><strong>Telemedicine</strong></td>
+                            <td>Чат + AI-агент</td>
+                            <td><span class="status ready">READY</span></td>
+                            <td>Готов к использованию</td>
                         </tr>
                         <tr>
                             <td><strong>Clinical Decision Support</strong></td>
-                            <td>Рекомендации на основе доказательств</td>
-                            <td><span class="status needs-dev">Базовый</span></td>
-                            <td>Расширить библиотеку протоколов (диабет, гипертония, ХОБЛ)</td>
+                            <td>Evidence-based</td>
+                            <td><span class="status needs-dev">BASIC</span></td>
+                            <td>Библиотека протоколов</td>
                         </tr>
                         <tr>
                             <td><strong>Family Health Network</strong></td>
-                            <td>Анализ генетических рисков в семье</td>
-                            <td><span class="status missing">Не построено</span></td>
-                            <td><strong>НОВОЕ:</strong> Семейный граф, моделирование рисков (4-5 месяцев)</td>
+                            <td>Генетические риски</td>
+                            <td><span class="status missing">NEW</span></td>
+                            <td>4-5 месяцев разработки</td>
                         </tr>
                         <tr>
                             <td><strong>Care Team Coordination</strong></td>
-                            <td>Инструменты координации между врачами</td>
-                            <td><span class="status needs-dev">Базовый мессенджер</span></td>
-                            <td>Добавить общие планы лечения, делегирование задач (2-3 месяца)</td>
+                            <td>Координация врачей</td>
+                            <td><span class="status needs-dev">BASIC</span></td>
+                            <td>2-3 месяца</td>
                         </tr>
                         <tr>
-                            <td><strong>Pharma Engagement Layer</strong></td>
-                            <td>Спонсируемый контент, CPM/CPC трекинг</td>
-                            <td><span class="status missing">Не построено</span></td>
-                            <td><strong>НОВОЕ:</strong> Инфраструктура pharma партнерств (3-4 месяца)</td>
+                            <td><strong>Pharma Engagement</strong></td>
+                            <td>CPM/CPC трекинг</td>
+                            <td><span class="status missing">NEW</span></td>
+                            <td>3-4 месяца</td>
                         </tr>
                         <tr>
                             <td><strong>Commerce Marketplace</strong></td>
-                            <td>E-commerce для лекарств, БАДов, устройств</td>
-                            <td><span class="status missing">Не построено</span></td>
-                            <td><strong>НОВОЕ:</strong> Платформа маркетплейса (4-5 месяцев)</td>
+                            <td>E-commerce</td>
+                            <td><span class="status missing">NEW</span></td>
+                            <td>4-5 месяцев</td>
                         </tr>
                         <tr>
                             <td><strong>RWE Data Infrastructure</strong></td>
-                            <td>Продукты на основе деидентифицированных данных</td>
-                            <td><span class="status missing">Не построено</span></td>
-                            <td><strong>НОВОЕ:</strong> Data pipeline, API (3-4 месяца)</td>
+                            <td>Data products</td>
+                            <td><span class="status missing">NEW</span></td>
+                            <td>3-4 месяца</td>
                         </tr>
                         <tr>
                             <td><strong>HIPAA Compliance</strong></td>
-                            <td>Полная HIPAA-готовая инфраструктура</td>
-                            <td><span class="status needs-dev">Есть framework</span></td>
-                            <td>Аудит, сертификация, BAA шаблоны (2-3 месяца)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Аутентификация и безопасность</strong></td>
-                            <td>SSO/OAuth, RBAC, логи аудита</td>
-                            <td><span class="status ready">Работает</span></td>
-                            <td>Добавить SMART on FHIR auto-launch</td>
-                        </tr>
-                        <tr>
-                            <td><strong>LLM Integration</strong></td>
-                            <td>Мульти-модельный AI (OpenAI, Anthropic, Llama)</td>
-                            <td><span class="status ready">Anthropic API работает</span></td>
-                            <td>Добавить абстракцию для мульти-LLM</td>
+                            <td>Полная готовность</td>
+                            <td><span class="status needs-dev">FRAMEWORK</span></td>
+                            <td>Аудит, сертификация</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Section 3: Detailed Budget Breakdown -->
+            <!-- Section 3: Detailed Budget -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">3</span>
-                    Детальная Разбивка Бюджета (Адаптация H4U)
+                    <span class="section-number">03</span>
+                    Детальная Разбивка Бюджета
                 </h2>
 
-                <h3 style="font-size: 1.6rem; margin-bottom: 25px; color: #2d3748;">Общий Бюджет: $6.6M на 12 месяцев</h3>
+                <h3 style="font-size: 1.4rem; margin-bottom: 25px; color: #000000; font-weight: 700;">ОБЩИЙ БЮДЖЕТ: $6.6M НА 12 МЕСЯЦЕВ</h3>
 
                 <table class="budget-table">
                     <thead>
@@ -695,33 +719,33 @@
                     </thead>
                     <tbody>
                         <tr class="category-header">
-                            <td colspan="4"><strong>1. РАЗРАБОТКА: $3.4M</strong></td>
+                            <td colspan="4">1. РАЗРАБОТКА: $3.4M</td>
                         </tr>
                         <tr>
                             <td rowspan="8"><strong>Core Enhancement</strong><br>$2.0M</td>
                             <td>Head of Engineering</td>
                             <td>$200K</td>
-                            <td>CTO, архитектура системы</td>
+                            <td>CTO, архитектура</td>
                         </tr>
                         <tr>
                             <td>4 Senior Engineers</td>
                             <td>$708K</td>
-                            <td>2 Backend, 2 Frontend (по $177K каждый)</td>
+                            <td>Backend + Frontend</td>
                         </tr>
                         <tr>
                             <td>2 Mobile Engineers</td>
                             <td>$354K</td>
-                            <td>iOS + Android (по $177K)</td>
+                            <td>iOS + Android</td>
                         </tr>
                         <tr>
                             <td>DevOps Engineer</td>
                             <td>$177K</td>
-                            <td>Инфраструктура, CI/CD</td>
+                            <td>CI/CD, Infrastructure</td>
                         </tr>
                         <tr>
                             <td>QA Engineer</td>
                             <td>$159K</td>
-                            <td>Тестирование, автоматизация</td>
+                            <td>Testing, Automation</td>
                         </tr>
                         <tr>
                             <td>Product Manager</td>
@@ -736,7 +760,7 @@
                         <tr>
                             <td>Infrastructure & Tools</td>
                             <td>$82K</td>
-                            <td>AWS, инструменты разработки</td>
+                            <td>AWS, инструменты</td>
                         </tr>
 
                         <tr>
@@ -753,12 +777,12 @@
                         <tr>
                             <td>Medical Science Liaison</td>
                             <td>$120K</td>
-                            <td>Клиническая валидация для pharma</td>
+                            <td>Клин. валидация</td>
                         </tr>
                         <tr>
                             <td>Development & Legal</td>
                             <td>$100K</td>
-                            <td>Sponsored content CMS, MLR compliance</td>
+                            <td>CMS, MLR compliance</td>
                         </tr>
 
                         <tr>
@@ -770,19 +794,19 @@
                         <tr>
                             <td>E-commerce Engineer</td>
                             <td>$130K</td>
-                            <td>Разработка маркетплейса</td>
+                            <td>Разработка</td>
                         </tr>
                         <tr>
-                            <td>Supplier Partnership Manager</td>
+                            <td>Supplier Partnership Mgr</td>
                             <td>$90K</td>
-                            <td>Привлечение поставщиков</td>
+                            <td>Поставщики</td>
                         </tr>
 
                         <tr>
                             <td rowspan="2"><strong>RWE Data</strong><br>$290K</td>
                             <td>Data Engineer</td>
                             <td>$140K</td>
-                            <td>Data warehouse, de-identification</td>
+                            <td>Data warehouse</td>
                         </tr>
                         <tr>
                             <td>Clinical Data Scientist</td>
@@ -794,11 +818,11 @@
                             <td><strong>GCC Adaptation</strong></td>
                             <td>Локализация + интеграция</td>
                             <td>$300K</td>
-                            <td>Арабский язык, Thumbay EMR, регуляторика</td>
+                            <td>Arabic, Thumbay EMR</td>
                         </tr>
 
                         <tr class="category-header">
-                            <td colspan="4"><strong>2. МАРКЕТИНГ И РОСТ: $800K</strong></td>
+                            <td colspan="4">2. МАРКЕТИНГ И РОСТ: $800K</td>
                         </tr>
                         <tr>
                             <td rowspan="4"><strong>Команда</strong><br>$475K</td>
@@ -824,31 +848,31 @@
 
                         <tr>
                             <td><strong>Conferences GCC</strong></td>
-                            <td>Arab Health Dubai + другие</td>
+                            <td>Arab Health Dubai</td>
                             <td>$100K</td>
-                            <td>Стенды, спонсорство, поездки</td>
+                            <td>Стенды, спонсорство</td>
                         </tr>
                         <tr>
                             <td><strong>Digital Marketing</strong></td>
-                            <td>LinkedIn, медицинские публикации</td>
+                            <td>LinkedIn, мед. публикации</td>
                             <td>$120K</td>
-                            <td>Таргетированная реклама на врачей</td>
+                            <td>Таргет на врачей</td>
                         </tr>
                         <tr>
                             <td><strong>KOL & Referrals</strong></td>
                             <td>Программа адвокатов</td>
                             <td>$105K</td>
-                            <td>Влиятельные врачи, рефералы</td>
+                            <td>Влиятельные врачи</td>
                         </tr>
 
                         <tr class="category-header">
-                            <td colspan="4"><strong>3. COMPLIANCE & REGULATORY: $900K</strong></td>
+                            <td colspan="4">3. COMPLIANCE & REGULATORY: $900K</td>
                         </tr>
                         <tr>
                             <td rowspan="3"><strong>Команда</strong><br>$300K</td>
                             <td>Chief Compliance Officer</td>
                             <td>$120K</td>
-                            <td>Part-time, с месяца 6</td>
+                            <td>Part-time, мес. 6</td>
                         </tr>
                         <tr>
                             <td>Data Protection Officer</td>
@@ -856,32 +880,32 @@
                             <td>GDPR/HIPAA</td>
                         </tr>
                         <tr>
-                            <td>Healthcare Attorney (retainer)</td>
+                            <td>Healthcare Attorney</td>
                             <td>$70K</td>
-                            <td>Постоянный legal counsel</td>
+                            <td>Legal counsel</td>
                         </tr>
 
                         <tr>
                             <td><strong>Legal Documentation</strong></td>
-                            <td>ToS, Privacy, BAA, Disclaimers</td>
+                            <td>ToS, Privacy, BAA</td>
                             <td>$90K</td>
-                            <td>US + Israel + EU attorneys</td>
+                            <td>US + Israel + EU</td>
                         </tr>
                         <tr>
                             <td><strong>HIPAA Compliance</strong></td>
-                            <td>Security assessment, BAA</td>
+                            <td>Security assessment</td>
                             <td>$83K</td>
-                            <td>HIPAA compliance framework</td>
+                            <td>Framework</td>
                         </tr>
                         <tr>
                             <td><strong>Security Testing</strong></td>
-                            <td>Penetration testing, audits</td>
+                            <td>Penetration testing</td>
                             <td>$135K</td>
-                            <td>Внешние security эксперты</td>
+                            <td>External experts</td>
                         </tr>
                         <tr>
                             <td><strong>FDA Regulatory</strong></td>
-                            <td>Software classification, strategy</td>
+                            <td>Classification</td>
                             <td>$40K</td>
                             <td>FDA consultant</td>
                         </tr>
@@ -889,97 +913,97 @@
                             <td><strong>GCC Regulatory</strong></td>
                             <td>UAE MOHAP, Saudi SFDA</td>
                             <td>$70K</td>
-                            <td>Регистрация в GCC странах</td>
+                            <td>Регистрация</td>
                         </tr>
                         <tr>
                             <td><strong>Certifications</strong></td>
-                            <td>SOC 2 Type II начало</td>
+                            <td>SOC 2 Type II</td>
                             <td>$50K</td>
-                            <td>Audit prep, gap analysis</td>
+                            <td>Audit prep</td>
                         </tr>
                         <tr>
                             <td><strong>State Compliance</strong></td>
-                            <td>Medical board requirements</td>
+                            <td>Medical board</td>
                             <td>$52K</td>
-                            <td>TX, CA, NY compliance</td>
+                            <td>TX, CA, NY</td>
                         </tr>
 
                         <tr class="category-header">
-                            <td colspan="4"><strong>4. FREE TIER RECURRING COSTS: $150K</strong></td>
+                            <td colspan="4">4. FREE TIER RECURRING: $150K</td>
                         </tr>
                         <tr>
-                            <td><strong>AI/LLM API costs</strong></td>
-                            <td>Whisper + Claude для всех врачей</td>
+                            <td><strong>AI/LLM API</strong></td>
+                            <td>Whisper + Claude</td>
                             <td>$45K</td>
-                            <td>~$14/врач/месяц × средняя база</td>
+                            <td>~$14/врач/мес</td>
                         </tr>
                         <tr>
                             <td><strong>Cloud Infrastructure</strong></td>
-                            <td>AWS hosting, data transfer</td>
+                            <td>AWS hosting</td>
                             <td>$25K</td>
-                            <td>~$7/врач/месяц</td>
+                            <td>~$7/врач/мес</td>
                         </tr>
                         <tr>
                             <td><strong>Third-party Services</strong></td>
                             <td>FHIR, drug data, SMS</td>
                             <td>$60K</td>
-                            <td>Redox, FirstDataBank, Twilio</td>
+                            <td>Redox, FDB, Twilio</td>
                         </tr>
                         <tr>
                             <td><strong>Customer Support</strong></td>
-                            <td>Help desk, onboarding</td>
+                            <td>Help desk</td>
                             <td>$20K</td>
-                            <td>Intercom, материалы обучения</td>
+                            <td>Intercom, материалы</td>
                         </tr>
 
                         <tr class="category-header">
-                            <td colspan="4"><strong>5. THUMBAY INTEGRATION: $450K</strong></td>
+                            <td colspan="4">5. THUMBAY INTEGRATION: $450K</td>
                         </tr>
                         <tr>
                             <td><strong>Локализация</strong></td>
-                            <td>Arabic UI/UX, NLP, RTL support</td>
+                            <td>Arabic UI/UX, NLP</td>
                             <td>$180K</td>
-                            <td>Полная локализация платформы</td>
+                            <td>RTL support</td>
                         </tr>
                         <tr>
-                            <td><strong>Thumbay EMR Integration</strong></td>
+                            <td><strong>Thumbay EMR</strong></td>
                             <td>Кастомная интеграция</td>
                             <td>$80K</td>
-                            <td>Не Epic/Cerner - proprietary</td>
+                            <td>Proprietary system</td>
                         </tr>
                         <tr>
                             <td><strong>Thumbay Pharmacy API</strong></td>
-                            <td>Интеграция маркетплейса</td>
+                            <td>Маркетплейс</td>
                             <td>$30K</td>
                             <td>50+ аптек</td>
                         </tr>
                         <tr>
-                            <td><strong>Thumbay Labs Integration</strong></td>
-                            <td>Диагностические данные</td>
+                            <td><strong>Thumbay Labs</strong></td>
+                            <td>Диагностика</td>
                             <td>$25K</td>
-                            <td>Lab results в платформу</td>
+                            <td>Lab results</td>
                         </tr>
                         <tr>
                             <td><strong>GCC Regulatory</strong></td>
-                            <td>UAE, Saudi, Qatar approvals</td>
+                            <td>UAE, Saudi, Qatar</td>
                             <td>$70K</td>
-                            <td>MOHAP, SFDA registrations</td>
+                            <td>MOHAP, SFDA</td>
                         </tr>
                         <tr>
                             <td><strong>GCC Clinical Protocols</strong></td>
-                            <td>Диабет, ожирение (высокая распространенность)</td>
+                            <td>Диабет, ожирение</td>
                             <td>$40K</td>
-                            <td>Локальные clinical pathways</td>
+                            <td>Local pathways</td>
                         </tr>
                         <tr>
                             <td><strong>Cultural Adaptation</strong></td>
-                            <td>Время молитвы, Рамадан workflows</td>
+                            <td>Время молитвы, Рамадан</td>
                             <td>$25K</td>
                             <td>Культурные особенности</td>
                         </tr>
 
                         <tr class="category-header">
-                            <td colspan="4"><strong>6. CONTINGENCY: $660K (10%)</strong></td>
+                            <td colspan="4">6. CONTINGENCY: $660K (10%)</td>
                         </tr>
 
                         <tr class="total-row">
@@ -990,37 +1014,37 @@
                 </table>
             </div>
 
-            <!-- Section 4: Team Structure & Hiring Timeline -->
+            <!-- Section 4: Team Structure -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">4</span>
+                    <span class="section-number">04</span>
                     Команда и График Найма
                 </h2>
 
                 <div class="team-timeline">
                     <div class="team-phase">
                         <h4>
-                            <span class="phase-marker">Месяц 1-2</span>
-                            Стартовая Команда (13 человек)
+                            <span class="phase-marker">МЕС 1-2</span>
+                            Стартовая Команда (13)
                         </h4>
-                        <p style="margin-bottom: 20px; color: #4a5568;">
-                            <strong>Цель:</strong> Запустить базовую адаптацию H4U → Evrionta, подготовить Thumbay pilot
+                        <p style="margin-bottom: 15px; color: #333333; font-size: 0.9rem;">
+                            <strong>ЦЕЛЬ:</strong> Запуск адаптации H4U → Evrionta, Thumbay pilot
                         </p>
                         <div class="role-grid">
                             <div class="role-item">
-                                <span class="role-name">Head of Engineering (CTO)</span>
+                                <span class="role-name">Head of Engineering</span>
                                 <span class="role-salary">$200K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">2 Senior Backend Engineers</span>
+                                <span class="role-name">2 Senior Backend</span>
                                 <span class="role-salary">$354K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">2 Senior Frontend Engineers</span>
+                                <span class="role-name">2 Senior Frontend</span>
                                 <span class="role-salary">$354K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">2 Mobile Engineers (iOS + Android)</span>
+                                <span class="role-name">2 Mobile Engineers</span>
                                 <span class="role-salary">$354K</span>
                             </div>
                             <div class="role-item">
@@ -1040,11 +1064,11 @@
                                 <span class="role-salary">$170K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">Growth Marketing Manager</span>
+                                <span class="role-name">Growth Marketing Mgr</span>
                                 <span class="role-salary">$120K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">Content Marketing Manager</span>
+                                <span class="role-name">Content Marketing Mgr</span>
                                 <span class="role-salary">$100K</span>
                             </div>
                             <div class="role-item">
@@ -1052,96 +1076,96 @@
                                 <span class="role-salary">$159K</span>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
-                            <strong>Total Headcount:</strong> 13 человек | <strong>Monthly Burn:</strong> ~$380K
+                        <div style="margin-top: 15px; padding: 12px; background: white; border: 1px solid #cccccc;">
+                            <strong>HEADCOUNT: 13</strong> | <strong>MONTHLY BURN: ~$380K</strong>
                         </div>
                     </div>
 
                     <div class="team-phase">
                         <h4>
-                            <span class="phase-marker">Месяц 3-5</span>
-                            Расширение (15 человек)
+                            <span class="phase-marker">МЕС 3-5</span>
+                            Расширение (15)
                         </h4>
-                        <p style="margin-bottom: 20px; color: #4a5568;">
-                            <strong>Цель:</strong> Начать pharma track, подготовить marketplace
+                        <p style="margin-bottom: 15px; color: #333333; font-size: 0.9rem;">
+                            <strong>ЦЕЛЬ:</strong> Pharma track, marketplace подготовка
                         </p>
                         <div class="role-grid">
                             <div class="role-item">
                                 <span class="role-name">VP Pharma Partnerships</span>
-                                <span class="role-salary">$180K (с мес. 3)</span>
+                                <span class="role-salary">$180K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Community Manager</span>
-                                <span class="role-salary">$85K (с мес. 3)</span>
+                                <span class="role-salary">$85K</span>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
-                            <strong>Total Headcount:</strong> 15 человек | <strong>Monthly Burn:</strong> ~$420K
+                        <div style="margin-top: 15px; padding: 12px; background: white; border: 1px solid #cccccc;">
+                            <strong>HEADCOUNT: 15</strong> | <strong>MONTHLY BURN: ~$420K</strong>
                         </div>
                     </div>
 
                     <div class="team-phase">
                         <h4>
-                            <span class="phase-marker">Месяц 6-12</span>
-                            Полная Команда (20 человек)
+                            <span class="phase-marker">МЕС 6-12</span>
+                            Полная Команда (20)
                         </h4>
-                        <p style="margin-bottom: 20px; color: #4a5568;">
-                            <strong>Цель:</strong> Запустить все revenue streams (pharma, marketplace, RWE), масштабироваться в GCC
+                        <p style="margin-bottom: 15px; color: #333333; font-size: 0.9rem;">
+                            <strong>ЦЕЛЬ:</strong> Все revenue streams (pharma, marketplace, RWE), масштабирование GCC
                         </p>
                         <div class="role-grid">
                             <div class="role-item">
-                                <span class="role-name">Marketplace Product Manager</span>
-                                <span class="role-salary">$140K (с мес. 4)</span>
+                                <span class="role-name">Marketplace PM</span>
+                                <span class="role-salary">$140K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">E-commerce Engineer</span>
-                                <span class="role-salary">$130K (с мес. 4)</span>
+                                <span class="role-salary">$130K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Chief Compliance Officer</span>
-                                <span class="role-salary">$120K (с мес. 6)</span>
+                                <span class="role-salary">$120K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">Data Protection Officer (DPO)</span>
-                                <span class="role-salary">$110K (с мес. 6)</span>
+                                <span class="role-name">Data Protection Officer</span>
+                                <span class="role-salary">$110K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Pharma Account Manager</span>
-                                <span class="role-salary">$100K (с мес. 6)</span>
+                                <span class="role-salary">$100K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Medical Science Liaison</span>
-                                <span class="role-salary">$120K (с мес. 6)</span>
+                                <span class="role-salary">$120K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">Supplier Partnership Manager</span>
-                                <span class="role-salary">$90K (с мес. 6)</span>
+                                <span class="role-name">Supplier Partnership Mgr</span>
+                                <span class="role-salary">$90K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Data Engineer</span>
-                                <span class="role-salary">$140K (с мес. 6)</span>
+                                <span class="role-salary">$140K</span>
                             </div>
                             <div class="role-item">
                                 <span class="role-name">Clinical Data Scientist</span>
-                                <span class="role-salary">$150K (с мес. 6)</span>
+                                <span class="role-salary">$150K</span>
                             </div>
                             <div class="role-item">
-                                <span class="role-name">Healthcare Attorney (retainer)</span>
-                                <span class="role-salary">$70K (с мес. 6)</span>
+                                <span class="role-name">Healthcare Attorney</span>
+                                <span class="role-salary">$70K</span>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
-                            <strong>Total Headcount:</strong> 20 человек | <strong>Monthly Burn:</strong> ~$550K
+                        <div style="margin-top: 15px; padding: 12px; background: white; border: 1px solid #cccccc;">
+                            <strong>HEADCOUNT: 20</strong> | <strong>MONTHLY BURN: ~$550K</strong>
                         </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-radius: 14px;">
-                    <h3 style="font-size: 1.6rem; margin-bottom: 20px; color: #2d3748;">Организационная Структура</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                        <div>
-                            <strong>Engineering (10 человек)</strong>
-                            <ul style="margin-top: 10px; margin-left: 20px; color: #4a5568;">
+                <div style="margin-top: 35px; padding: 25px; background: #f5f5f5; border: 1px solid #cccccc;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 20px; color: #000000; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Организационная Структура</h3>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #cccccc; border: 1px solid #cccccc;">
+                        <div style="background: white; padding: 20px;">
+                            <strong style="display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.3px; font-size: 0.9rem;">Engineering (10)</strong>
+                            <ul style="margin-left: 15px; color: #333333; font-size: 0.85rem; line-height: 1.8;">
                                 <li>Backend/Frontend (4)</li>
                                 <li>Mobile (2)</li>
                                 <li>Data Engineer (1)</li>
@@ -1150,25 +1174,25 @@
                                 <li>QA (1)</li>
                             </ul>
                         </div>
-                        <div>
-                            <strong>Product (3 человека)</strong>
-                            <ul style="margin-top: 10px; margin-left: 20px; color: #4a5568;">
+                        <div style="background: white; padding: 20px;">
+                            <strong style="display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.3px; font-size: 0.9rem;">Product (3)</strong>
+                            <ul style="margin-left: 15px; color: #333333; font-size: 0.85rem; line-height: 1.8;">
                                 <li>Core PM (1)</li>
                                 <li>Marketplace PM (1)</li>
                                 <li>Designer (1)</li>
                             </ul>
                         </div>
-                        <div>
-                            <strong>Commercial (5 человек)</strong>
-                            <ul style="margin-top: 10px; margin-left: 20px; color: #4a5568;">
+                        <div style="background: white; padding: 20px;">
+                            <strong style="display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.3px; font-size: 0.9rem;">Commercial (5)</strong>
+                            <ul style="margin-left: 15px; color: #333333; font-size: 0.85rem; line-height: 1.8;">
                                 <li>VP Pharma (1)</li>
                                 <li>Pharma AM + MSL (2)</li>
                                 <li>VP Growth + Team (2)</li>
                             </ul>
                         </div>
-                        <div>
-                            <strong>Compliance (3 человека)</strong>
-                            <ul style="margin-top: 10px; margin-left: 20px; color: #4a5568;">
+                        <div style="background: white; padding: 20px;">
+                            <strong style="display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.3px; font-size: 0.9rem;">Compliance (3)</strong>
+                            <ul style="margin-left: 15px; color: #333333; font-size: 0.85rem; line-height: 1.8;">
                                 <li>CCO (1)</li>
                                 <li>DPO (1)</li>
                                 <li>Legal (1)</li>
@@ -1181,8 +1205,8 @@
             <!-- Section 5: Monthly Breakdown -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">5</span>
-                    Помесячная Разбивка: Этапы и Расходы
+                    <span class="section-number">05</span>
+                    Помесячная Разбивка
                 </h2>
 
                 <div class="monthly-breakdown">
@@ -1194,102 +1218,99 @@
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">1</div>
-                        <div class="month-activities">Формирование команды, H4U audit, GCC локализация старт</div>
+                        <div class="month-label">01</div>
+                        <div class="month-activities">Формирование команды, H4U audit, GCC локализация</div>
                         <div class="month-team">13</div>
                         <div class="month-cost">$380K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">2</div>
+                        <div class="month-label">02</div>
                         <div class="month-activities">Thumbay EMR интеграция, Arabic UI, Pilot setup (10 врачей)</div>
                         <div class="month-team">13</div>
                         <div class="month-cost">$380K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">3</div>
-                        <div class="month-activities">Thumbay pilot launch, VP Pharma hired, Dubai hospital expansion</div>
+                        <div class="month-label">03</div>
+                        <div class="month-activities">Thumbay pilot launch, VP Pharma hired, Dubai expansion</div>
                         <div class="month-team">15</div>
                         <div class="month-cost">$420K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">4</div>
-                        <div class="month-activities">Family Health Network dev, Marketplace PM hired, 30 врачей active</div>
+                        <div class="month-label">04</div>
+                        <div class="month-activities">Family Health Network dev, Marketplace PM hired, 30 врачей</div>
                         <div class="month-team">16</div>
                         <div class="month-cost">$450K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">5</div>
-                        <div class="month-activities">Care Team Coordination, E-commerce platform setup, Gulf Med University</div>
+                        <div class="month-label">05</div>
+                        <div class="month-activities">Care Team Coordination, E-commerce setup, Gulf Med University</div>
                         <div class="month-team">17</div>
                         <div class="month-cost">$470K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">6</div>
-                        <div class="month-activities">Compliance team hired, 50 врачей milestone, clinical validation complete</div>
+                        <div class="month-label">06</div>
+                        <div class="month-activities">Compliance team hired, 50 врачей, clinical validation</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">7</div>
-                        <div class="month-activities">Saudi market entry prep, pharma infrastructure MVP, 70 врачей</div>
+                        <div class="month-label">07</div>
+                        <div class="month-activities">Saudi market entry, pharma infrastructure MVP, 70 врачей</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">8</div>
-                        <div class="month-activities">RWE data pipeline, marketplace soft launch, 100 врачей across GCC</div>
+                        <div class="month-label">08</div>
+                        <div class="month-activities">RWE data pipeline, marketplace soft launch, 100 врачей GCC</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
-                        <div class="month-label">9</div>
-                        <div class="month-activities">First pharma pilot talks, Thumbay Pharmacy integration, 150 врачей</div>
+                        <div class="month-label">09</div>
+                        <div class="month-activities">Pharma pilot talks, Thumbay Pharmacy integration, 150 врачей</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
                         <div class="month-label">10</div>
-                        <div class="month-activities">First pharma pilot contract ($50K), marketplace GMV starts, 180 врачей</div>
+                        <div class="month-activities">First pharma contract ($50K), marketplace GMV, 180 врачей</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
                         <div class="month-label">11</div>
-                        <div class="month-activities">RWE data products launch, USA market prep, 250 врачей, $120K MRR</div>
+                        <div class="month-activities">RWE data products, USA prep, 250 врачей, $120K MRR</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
                     <div class="month-row">
                         <div class="month-label">12</div>
-                        <div class="month-activities">Series A materials, 300 врачей (GCC+USA), $150K MRR, ready for Series A</div>
+                        <div class="month-activities">Series A materials, 300 врачей (GCC+USA), $150K MRR</div>
                         <div class="month-team">20</div>
                         <div class="month-cost">$550K</div>
                     </div>
 
-                    <div class="month-row" style="background: #edf2f7; font-weight: 700; font-size: 1.1rem;">
-                        <div>ИТОГО</div>
-                        <div>12 месяцев до Series A</div>
-                        <div>Avg 18</div>
-                        <div>$6.0M</div>
+                    <div style="background: #000000; color: #ffffff; padding: 15px; margin-top: 1px; font-weight: 700; font-family: 'Courier New', monospace;">
+                        ИТОГО: 12 МЕСЯЦЕВ | AVG 18 | $6.0M
                     </div>
 
-                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 10px;">
-                        <p style="color: #4a5568; margin-bottom: 10px;">
-                            <strong>Примечание:</strong> Общий budget $6.6M включает $600K contingency (10%). Активные расходы за 12 месяцев = $6.0M.
+                    <div style="margin-top: 20px; padding: 20px; background: #f5f5f5; border: 1px solid #cccccc; font-size: 0.9rem;">
+                        <p style="color: #333333; margin-bottom: 10px;">
+                            <strong>ПРИМЕЧАНИЕ:</strong> Общий budget $6.6M включает $600K contingency (10%). Активные расходы = $6.0M.
                         </p>
-                        <p style="color: #4a5568;">
-                            <strong>Revenue offset:</strong> К месяцу 12 достигаем $150K MRR, что частично компенсирует burn rate для Series A.
+                        <p style="color: #333333;">
+                            <strong>REVENUE OFFSET:</strong> К месяцу 12 достигаем $150K MRR, частично компенсирует burn rate.
                         </p>
                     </div>
                 </div>
@@ -1298,175 +1319,204 @@
             <!-- Section 6: Timeline Comparison -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">6</span>
-                    Сравнение Timeline: С Нуля vs. H4U Адаптация
+                    <span class="section-number">06</span>
+                    Сравнение Timeline
                 </h2>
 
-                <h3 style="margin-top: 30px; margin-bottom: 25px; color: #2d3748; font-size: 1.7rem;">
+                <h3 style="margin-top: 25px; margin-bottom: 20px; color: #000000; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
                     Разработка с Нуля (18-24 месяца)
                 </h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-marker">1-6</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 1-6: Базовая Инфраструктура</h4>
-                            <p><strong>Активности:</strong> Backend инфраструктура, дизайн БД, аутентификация, базовые API, фреймворки мобильных приложений</p>
-                            <p><strong>Команда:</strong> 15-20 инженеров</p>
-                            <p><strong>Результат:</strong> Базовый скелет платформы, никаких клинических функций</p>
-                            <p><strong>Затраты:</strong> ~$3.5M</p>
+                            <h4>Базовая Инфраструктура</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> Backend, БД дизайн, API, мобильные фреймворки</p>
+                            <p><strong>КОМАНДА:</strong> 15-20 инженеров</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> Скелет платформы, без клинических функций</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$3.5M</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">7-12</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 7-12: Основные Функции</h4>
-                            <p><strong>Активности:</strong> FHIR интеграция, patient dashboard, wearables sync, базовые AI функции, AI Medical Scribe разработка</p>
-                            <p><strong>Команда:</strong> 25-30 человек</p>
-                            <p><strong>Результат:</strong> MVP с базовыми клиническими workflows</p>
-                            <p><strong>Затраты:</strong> ~$4.5M</p>
+                            <h4>Основные Функции</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> FHIR, patient dashboard, wearables, AI Scribe разработка</p>
+                            <p><strong>КОМАНДА:</strong> 25-30 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> MVP с базовыми workflows</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$4.5M</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">13-18</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 13-18: Продвинутые Функции</h4>
-                            <p><strong>Активности:</strong> Family Health Network, Clinical Decision Support, multi-provider coordination</p>
-                            <p><strong>Команда:</strong> 35-40 человек</p>
-                            <p><strong>Результат:</strong> Полный функционал Evrionta</p>
-                            <p><strong>Затраты:</strong> ~$2.5M</p>
+                            <h4>Продвинутые Функции</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> Family Network, Clinical Decision Support, coordination</p>
+                            <p><strong>КОМАНДА:</strong> 35-40 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> Полный функционал Evrionta</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$2.5M</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">19-24</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 19-24: Монетизация и Масштабирование</h4>
-                            <p><strong>Активности:</strong> Pharma инфраструктура, marketplace, RWE data pipeline, сертификации compliance</p>
-                            <p><strong>Команда:</strong> 40+ человек</p>
-                            <p><strong>Результат:</strong> Готовая к коммерческому запуску платформа</p>
-                            <p><strong>Затраты:</strong> ~$2.0M</p>
+                            <h4>Монетизация и Масштабирование</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> Pharma, marketplace, RWE, compliance</p>
+                            <p><strong>КОМАНДА:</strong> 40+ человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> Готова к коммерческому запуску</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$2.0M</p>
                         </div>
                     </div>
                 </div>
 
-                <div style="padding: 25px; background: white; border-radius: 8px; margin: 30px 0; border: 2px solid #cbd5e0;">
-                    <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.3rem;">Итого при разработке с нуля:</h4>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Время:</strong> 18-24 месяца</p>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Затраты:</strong> $12.5M</p>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Риски:</strong> Технические, timeline delays, regulatory compliance</p>
+                <div style="padding: 20px; background: white; border: 2px solid #000000; margin: 25px 0;">
+                    <h4 style="color: #000000; margin-bottom: 12px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase;">ИТОГО С НУЛЯ:</h4>
+                    <p style="color: #333333; font-size: 0.95rem;"><strong>ВРЕМЯ:</strong> 18-24 месяца</p>
+                    <p style="color: #333333; font-size: 0.95rem;"><strong>ЗАТРАТЫ:</strong> $12.5M</p>
+                    <p style="color: #333333; font-size: 0.95rem;"><strong>РИСКИ:</strong> Технические, timeline delays, regulatory</p>
                 </div>
 
-                <h3 style="margin-top: 50px; margin-bottom: 25px; color: #2d3748; font-size: 1.7rem;">
+                <h3 style="margin-top: 40px; margin-bottom: 20px; color: #000000; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
                     Адаптация H4U (10-12 месяцев)
                 </h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-marker">1-3</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 1-3: Thumbay Pilot Setup</h4>
-                            <p><strong>Активности:</strong> Адаптация платформы H4U, Arabic локализация, Thumbay EMR интеграция, pilot с 10 врачей</p>
-                            <p><strong>Команда:</strong> 13-15 человек</p>
-                            <p><strong>Результат:</strong> Работающий pilot в больницах Thumbay (ОАЭ)</p>
-                            <p><strong>Затраты:</strong> ~$1.2M</p>
-                            <p style="color: #48bb78; font-weight: 600;">AI Medical Scribe уже работает!</p>
+                            <h4>Thumbay Pilot Setup</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> H4U адаптация, Arabic, Thumbay EMR, pilot 10 врачей</p>
+                            <p><strong>КОМАНДА:</strong> 13-15 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> Работающий pilot в Thumbay (ОАЭ)</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$1.2M</p>
+                            <p style="color: #000000; font-weight: 700;">AI MEDICAL SCRIBE УЖЕ РАБОТАЕТ!</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">4-6</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 4-6: Обогащение Функционала</h4>
-                            <p><strong>Активности:</strong> Family Health Network, Care Team Coordination, расширенный Thumbay rollout до 100 врачей</p>
-                            <p><strong>Команда:</strong> 16-17 человек</p>
-                            <p><strong>Результат:</strong> Основные функции Evrionta validated в GCC</p>
-                            <p><strong>Затраты:</strong> ~$1.4M</p>
+                            <h4>Обогащение Функционала</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> Family Network, Care Team, Thumbay rollout 100 врачей</p>
+                            <p><strong>КОМАНДА:</strong> 16-17 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> Основные функции validated в GCC</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$1.4M</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">7-10</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 7-10: GCC Expansion & Монетизация</h4>
-                            <p><strong>Активности:</strong> Выход на рынок Саудии, pharma инфраструктура, marketplace soft launch, первые pharma pilot контракты</p>
-                            <p><strong>Команда:</strong> 20 человек</p>
-                            <p><strong>Результат:</strong> 200 врачей в GCC, $80K MRR, доказанная бизнес-модель</p>
-                            <p><strong>Затраты:</strong> ~$2.2M</p>
+                            <h4>GCC Expansion & Монетизация</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> Саудия, pharma, marketplace soft launch, контракты</p>
+                            <p><strong>КОМАНДА:</strong> 20 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> 200 врачей GCC, $80K MRR, бизнес-модель доказана</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$2.2M</p>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker">11-12</div>
                         <div class="timeline-content">
-                            <h4>Месяцы 11-12: Подготовка к Series A</h4>
-                            <p><strong>Активности:</strong> Запуск RWE data products, soft launch на рынке США, материалы для Series A</p>
-                            <p><strong>Команда:</strong> 20 человек</p>
-                            <p><strong>Результат:</strong> $150K MRR ($1.8M ARR), 300 врачей (GCC + США), Seed round complete, Series A materials ready</p>
-                            <p><strong>Затраты:</strong> ~$1.1M</p>
+                            <h4>Подготовка к Series A</h4>
+                            <p><strong>АКТИВНОСТИ:</strong> RWE data products, USA soft launch, Series A materials</p>
+                            <p><strong>КОМАНДА:</strong> 20 человек</p>
+                            <p><strong>РЕЗУЛЬТАТ:</strong> $150K MRR ($1.8M ARR), 300 врачей (GCC+USA), Seed complete</p>
+                            <p><strong>ЗАТРАТЫ:</strong> ~$1.1M</p>
                         </div>
                     </div>
                 </div>
 
-                <div style="padding: 25px; background: #f7fafc; border-radius: 8px; margin: 30px 0; border: 2px solid #2d3748;">
-                    <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.3rem;">Итого при адаптации H4U:</h4>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Время:</strong> 10-12 месяцев</p>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Затраты:</strong> $6.6M (экономия $5.9M)</p>
-                    <p style="color: #4a5568; font-size: 1.1rem;"><strong>Риски:</strong> Снижены за счет готовой платформы H4U, AI Scribe с голосовым управлением, телемедицины, партнерства с Thumbay</p>
+                <div style="padding: 20px; background: #000000; color: #ffffff; margin: 25px 0;">
+                    <h4 style="margin-bottom: 12px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase;">ИТОГО АДАПТАЦИЯ H4U:</h4>
+                    <p style="font-size: 0.95rem;"><strong>ВРЕМЯ:</strong> 10-12 месяцев</p>
+                    <p style="font-size: 0.95rem;"><strong>ЗАТРАТЫ:</strong> $6.6M (экономия $5.9M)</p>
+                    <p style="font-size: 0.95rem;"><strong>РИСКИ:</strong> Снижены (готовая платформа, AI Scribe, Thumbay partnership)</p>
                 </div>
             </div>
 
-            <!-- Section 7: Key Advantages -->
+            <!-- Section 7: Market Validation & ROI -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">7</span>
-                    Ключевые Преимущества Подхода с H4U
+                    <span class="section-number">07</span>
+                    Валидация ROI по Рынку
                 </h2>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                    <div class="card">
-                        <h3>Снижение Рисков</h3>
-                        <p>Платформа H4U в production с опубликованными приложениями в App Store и Google Play. Отсутствие рисков построения инфраструктуры с нуля.</p>
-                    </div>
+                <div style="padding: 25px; background: #f5f5f5; border: 2px solid #000000; margin-bottom: 25px;">
+                    <h3 style="color: #000000; margin-bottom: 20px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">РЫНОЧНЫЕ АНАЛОГИ (2025-2026)</h3>
+                    <div style="color: #333333; font-size: 0.95rem; line-height: 1.8;">
+                        <p><strong>AI MEDICAL SCRIBE:</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Abridge: $5.3B valuation (Series E, $300M)</li>
+                            <li>Suki: $168M total funding (Series D $70M)</li>
+                            <li>Freed: 25,000+ clinicians, $99/month</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>Сокращение Time-to-Market</h3>
-                        <p>10-12 месяцев против 18-24 месяцев. Преимущество 8-12 месяцев. AI Medical Scribe и телемедицина готовы к использованию.</p>
-                    </div>
+                        <p><strong>HEALTHCARE AI BENCHMARKS:</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Median Series A: >$50M</li>
+                            <li>Median Series B: $143M</li>
+                            <li>Average round: $34.4M (83% premium vs non-AI)</li>
+                            <li>AI deals: 75% of health tech funding 2025</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>Оптимизация Капитала</h3>
-                        <p>$6.6M против $12.5M для Seed раунда. Эффективность использования капитала выше на 47%.</p>
-                    </div>
+                        <p><strong>CLINICAL AI PLATFORMS:</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Hippocratic AI: $1.64B (Series B, $141M)</li>
+                            <li>OpenEvidence: $3.5B ($210M)</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>Партнерство с Thumbay Group</h3>
-                        <p>100+ врачей для пилота, доступ к рынку GCC, дистрибуция через 50+ аптек, партнерство с медицинским университетом.</p>
-                    </div>
+                        <p><strong>CHRONIC DISEASE MANAGEMENT:</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li>Virta: $2B (Series E) at $100M ARR</li>
+                            <li>Omada: $1.2B at IPO (2025) with 679K members</li>
+                            <li>Livongo: Acquired by Teladoc for $18.5B (2020)</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>Проверенная Техническая База</h3>
-                        <p>FHIR интеграция, wearables sync, мобильные приложения, AI Medical Scribe, телемедицина, голосовое управление для врачей - протестированы в production.</p>
+                        <p><strong>REAL-WORLD EVIDENCE MARKET:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Market: $4.74B (2024) → $10.83B (2030)</li>
+                            <li>CAGR: 14.8%</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="card">
-                        <h3>Оптимизированная Команда</h3>
-                        <p>20 человек против 35-40. Фокус на Evrionta-специфичных функциях без разработки базовой инфраструктуры.</p>
-                    </div>
+                <div style="padding: 25px; background: #000000; color: #ffffff; border: 2px solid #000000;">
+                    <h3 style="margin-bottom: 20px; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">ПРОГНОЗ ВАЛЮАЦИИ И ROI</h3>
+                    <div style="font-size: 0.95rem; line-height: 1.8;">
+                        <p style="margin-bottom: 15px;"><strong>SEED ROUND (МЕСЯЦЫ 0-12):</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Investment: $6.6M</li>
+                            <li>Post-money valuation: $35-50M</li>
+                            <li>Target: 300 врачей, $1.8M ARR ($150K MRR)</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>GCC-First Стратегия</h3>
-                        <p>Запуск в GCC (ОАЭ, Саудовская Аравия) с меньшими регуляторными барьерами, затем экспансия в США с валидированной моделью.</p>
-                    </div>
+                        <p style="margin-bottom: 15px;"><strong>SERIES A (МЕСЯЦЫ 18-24):</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Projected valuation: $120-180M</li>
+                            <li>Target: 800-1,200 врачей, $5-10M ARR</li>
+                            <li>Rationale: Above median ($50M+), validated traction</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>Раннее Генерирование Revenue</h3>
-                        <p>Pharma контракты к месяцу 10, marketplace GMV к месяцу 8. $150K MRR к месяцу 12.</p>
-                    </div>
+                        <p style="margin-bottom: 15px;"><strong>SERIES B (МЕСЯЦЫ 30-36):</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Projected valuation: $500M-800M</li>
+                            <li>Target: 2,500 врачей, $30M ARR</li>
+                            <li>Rationale: Network effects, comparable to Virta ($2B at $100M ARR)</li>
+                        </ul>
 
-                    <div class="card">
-                        <h3>RWE Data с Первого Дня</h3>
-                        <p>Доступ к клиническим данным Thumbay network с pilot фазы. Формирование RWE dataset с месяца 1.</p>
+                        <p style="margin-bottom: 15px;"><strong>ROI ДЛЯ SEED ИНВЕСТОРА:</strong></p>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>15-25x return by Series B (24-36 months)</li>
+                            <li>Exit: Acquisition $1-2B or IPO $2-4B</li>
+                        </ul>
+
+                        <p style="font-size: 0.85rem; font-style: italic; margin-top: 20px; padding-top: 20px; border-top: 1px solid #666666;">
+                            * Projections based on 2025-2026 market comparables: AI healthcare median Series A >$50M, Series B $143M;
+                            comparable valuations Virta $2B, Hippocratic AI $1.64B, Abridge $5.3B
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1474,76 +1524,51 @@
             <!-- Final Summary -->
             <div class="section">
                 <h2 class="section-title">
-                    <span class="section-number">8</span>
-                    Итоговое Резюме для Инвесторов
+                    <span class="section-number">08</span>
+                    Итоговое Резюме
                 </h2>
 
-                <div style="padding: 40px; background: #f7fafc; border-radius: 8px; border: 2px solid #e2e8f0;">
-                    <h3 style="font-size: 2rem; margin-bottom: 25px; color: #2d3748;">
-                        Evrionta: Адаптация платформы H4U с партнерством Thumbay Group
+                <div style="padding: 35px; background: #f5f5f5; border: 3px solid #000000;">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 25px; color: #000000; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                        EVRIONTA: АДАПТАЦИЯ H4U + THUMBAY GROUP
                     </h3>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 30px;">
-                        <div style="background: white; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <h4 style="color: #2d3748; margin-bottom: 15px; font-size: 1.3rem;">Запрашиваемое Финансирование</h4>
-                            <p style="font-size: 2.5rem; font-weight: 700; color: #2d3748; margin-bottom: 10px;">$6.6M</p>
-                            <p style="color: #4a5568;">Seed раунд на 12 месяцев</p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 30px; background: #000000; border: 1px solid #000000;">
+                        <div style="background: #ffffff; padding: 25px;">
+                            <h4 style="color: #666666; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">ФИНАНСИРОВАНИЕ</h4>
+                            <p style="font-size: 2.2rem; font-weight: 700; color: #000000; margin-bottom: 8px; font-family: 'Courier New', monospace;">$6.6M</p>
+                            <p style="color: #333333; font-size: 0.85rem;">Seed раунд на 12 месяцев</p>
                         </div>
 
-                        <div style="background: white; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <h4 style="color: #2d3748; margin-bottom: 15px; font-size: 1.3rem;">Timeline до Series A</h4>
-                            <p style="font-size: 2.5rem; font-weight: 700; color: #2d3748; margin-bottom: 10px;">10-12 мес</p>
-                            <p style="color: #4a5568;">Против 18-24 при разработке с нуля</p>
+                        <div style="background: #ffffff; padding: 25px;">
+                            <h4 style="color: #666666; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">TIMELINE</h4>
+                            <p style="font-size: 2.2rem; font-weight: 700; color: #000000; margin-bottom: 8px; font-family: 'Courier New', monospace;">10-12M</p>
+                            <p style="color: #333333; font-size: 0.85rem;">vs 18-24 с нуля</p>
                         </div>
 
-                        <div style="background: white; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <h4 style="color: #2d3748; margin-bottom: 15px; font-size: 1.3rem;">Target MRR (Месяц 12)</h4>
-                            <p style="font-size: 2.5rem; font-weight: 700; color: #2d3748; margin-bottom: 10px;">$150K</p>
-                            <p style="color: #4a5568;">300 врачей, pharma + marketplace + patient</p>
+                        <div style="background: #ffffff; padding: 25px;">
+                            <h4 style="color: #666666; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">TARGET MRR M12</h4>
+                            <p style="font-size: 2.2rem; font-weight: 700; color: #000000; margin-bottom: 8px; font-family: 'Courier New', monospace;">$150K</p>
+                            <p style="color: #333333; font-size: 0.85rem;">300 врачей, 4 revenue streams</p>
                         </div>
                     </div>
 
-                    <h4 style="font-size: 1.5rem; margin-bottom: 20px; color: #2d3748;">Ключевые Milestones:</h4>
-                    <ul style="margin-left: 25px; color: #4a5568; font-size: 1.1rem; line-height: 1.9;">
-                        <li><strong>Месяц 3:</strong> Thumbay pilot validated (10 врачей, ОАЭ)</li>
-                        <li><strong>Месяц 6:</strong> Thumbay rollout complete (100 врачей, clinical validation)</li>
-                        <li><strong>Месяц 10:</strong> First pharma contract ($50K pilot), 200 врачей across GCC</li>
-                        <li><strong>Месяц 12:</strong> Seed complete, Series A materials ready - 300 врачей, $150K MRR ($1.8M ARR)</li>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 15px; color: #000000; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">КЛЮЧЕВЫЕ MILESTONES:</h4>
+                    <ul style="margin-left: 20px; color: #333333; font-size: 0.95rem; line-height: 1.8; margin-bottom: 25px;">
+                        <li><strong>МЕС 3:</strong> Thumbay pilot validated (10 врачей, ОАЭ)</li>
+                        <li><strong>МЕС 6:</strong> Thumbay rollout complete (100 врачей, clinical validation)</li>
+                        <li><strong>МЕС 10:</strong> First pharma contract ($50K pilot), 200 врачей GCC</li>
+                        <li><strong>МЕС 12:</strong> Seed complete, Series A ready - 300 врачей, $150K MRR ($1.8M ARR)</li>
                     </ul>
 
-                    <h4 style="font-size: 1.5rem; margin: 30px 0 20px 0; color: #2d3748;">Конкурентные Преимущества:</h4>
-                    <ul style="margin-left: 25px; color: #4a5568; font-size: 1.1rem; line-height: 1.9;">
-                        <li><strong>AI Medical Scribe + Voice Control:</strong> Production ready с полным голосовым управлением для врачей</li>
-                        <li><strong>Thumbay Partnership:</strong> 100+ врачей captive base, pharmacy distribution, university research</li>
-                        <li><strong>GCC-First:</strong> Меньше regulatory барьеров, proof-of-concept до USA expansion</li>
-                        <li><strong>Platform Economics:</strong> FREE tier для врачей + pharma/marketplace/RWE monetization</li>
-                        <li><strong>Network Effects:</strong> Больше врачей → больше данных → больше pharma revenue → лучше free tier</li>
+                    <h4 style="font-size: 1.1rem; margin: 25px 0 15px 0; color: #000000; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">КОНКУРЕНТНЫЕ ПРЕИМУЩЕСТВА:</h4>
+                    <ul style="margin-left: 20px; color: #333333; font-size: 0.95rem; line-height: 1.8;">
+                        <li><strong>AI MEDICAL SCRIBE + VOICE CONTROL:</strong> Production ready, полное голосовое управление</li>
+                        <li><strong>THUMBAY PARTNERSHIP:</strong> 100+ врачей captive base, pharmacy, university research</li>
+                        <li><strong>GCC-FIRST:</strong> Меньше regulatory барьеров, proof-of-concept до USA</li>
+                        <li><strong>PLATFORM ECONOMICS:</strong> FREE tier для врачей + pharma/marketplace/RWE</li>
+                        <li><strong>NETWORK EFFECTS:</strong> Больше врачей → больше данных → больше pharma revenue</li>
                     </ul>
-
-                    <div style="margin-top: 35px; padding: 25px; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
-                        <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.4rem;">Валидация ROI по Рыночным Аналогам (2025-2026):</h4>
-                        <p style="color: #4a5568; font-size: 1.1rem; line-height: 1.8;">
-                            <strong>AI Medical Scribe:</strong> Abridge $5.3B (Series E), Suki $168M total funding, Freed 25K+ врачей<br>
-                            <strong>Healthcare AI:</strong> Median Series A >$50M, median Series B $143M, средний раунд $34.4M (83% premium vs non-AI)<br>
-                            <strong>Clinical AI:</strong> Hippocratic AI $1.64B (Series B), OpenEvidence $3.5B<br>
-                            <strong>Chronic Care:</strong> Virta $2B при $100M ARR, Omada $1.2B при IPO (679K users), Livongo продан за $18.5B<br>
-                            <strong>RWE Market:</strong> $4.74B (2024) → $10.83B (2030), CAGR 14.8%
-                        </p>
-                    </div>
-
-                    <div style="margin-top: 20px; padding: 25px; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
-                        <h4 style="color: #1a202c; margin-bottom: 15px; font-size: 1.4rem;">Прогноз Валюации и ROI для Инвестора:</h4>
-                        <p style="color: #4a5568; font-size: 1.1rem; line-height: 1.8;">
-                            <strong>Seed round (месяцы 0-12):</strong> $6.6M raise, post-money $35-50M при $1.8M ARR и 300 врачей<br>
-                            <strong>Series A (месяцы 18-24):</strong> $120-180M валюация при $5-10M ARR и 800-1,200 врачей<br>
-                            <strong>Series B (месяцы 30-36):</strong> $500M-800M валюация при $30M ARR и 2,500 врачей<br>
-                            <strong>ROI для Seed инвестора:</strong> 15-25x к Series B (24-36 месяцев)<br>
-                            <strong>Exit scenario:</strong> Acquisition by Epic/Cerner/Optum at $1-2B или IPO at $2-4B
-                        </p>
-                        <p style="color: #2d3748; font-size: 1rem; margin-top: 15px; font-style: italic;">
-                            * Прогнозы основаны на рыночных аналогах 2025-2026: median AI healthcare Series A >$50M, Series B $143M; comparable valuations Virta $2B, Hippocratic AI $1.64B, Abridge $5.3B
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
