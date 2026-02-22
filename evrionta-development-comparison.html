@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evrionta Development Comparison - H4U vs Build from Scratch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #2d3748;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .card.highlight {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border: 2px solid #667eea;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .metric-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-value.savings {
+            color: #48bb78;
+        }
+
+        .feature-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .feature-comparison thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .feature-comparison th,
+        .feature-comparison td {
+            padding: 18px;
+            text-align: left;
+        }
+
+        .feature-comparison th {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .feature-comparison tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s ease;
+        }
+
+        .feature-comparison tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status.ready {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status.needs-dev {
+            background: #fef5e7;
+            color: #744210;
+        }
+
+        .status.missing {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-right: 30px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .timeline-content p {
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, #48bb7815 0%, #38a16915 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .savings-highlight h3 {
+            font-size: 2rem;
+            color: #22543d;
+            margin-bottom: 20px;
+        }
+
+        .savings-numbers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .savings-number {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .savings-number .label {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .savings-number .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #48bb78;
+        }
+
+        .category-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .category-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .budget-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            padding-top: 12px;
+            border-top: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-comparison {
+                font-size: 0.9rem;
+            }
+
+            .feature-comparison th,
+            .feature-comparison td {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Evrionta Development Analysis</h1>
+            <p>Build from Scratch vs. H4U Platform Adaptation</p>
+        </header>
+
+        <div class="content">
+            <!-- Section 1: High-level Comparison -->
+            <div class="section">
+                <h2 class="section-title">1. Executive Summary: Cost & Timeline Comparison</h2>
+
+                <div class="comparison-grid">
+                    <div class="card">
+                        <h3>Build from Scratch</h3>
+                        <div class="metric">
+                            <span class="metric-label">Seed Funding Required</span>
+                            <span class="metric-value">$12.5M</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Timeline to MVP</span>
+                            <span class="metric-value">18-24 months</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Team Size</span>
+                            <span class="metric-value">35-40 people</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Risk Level</span>
+                            <span class="metric-value">High</span>
+                        </div>
+                    </div>
+
+                    <div class="card highlight">
+                        <h3>H4U Platform Adaptation</h3>
+                        <div class="metric">
+                            <span class="metric-label">Seed Funding Required</span>
+                            <span class="metric-value savings">$6.6M</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Timeline to MVP</span>
+                            <span class="metric-value savings">10-12 months</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Team Size</span>
+                            <span class="metric-value savings">20 people</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Risk Level</span>
+                            <span class="metric-value savings">Low</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="savings-highlight">
+                    <h3>Savings by Leveraging H4U Platform (including AI Medical Scribe)</h3>
+                    <div class="savings-numbers">
+                        <div class="savings-number">
+                            <div class="label">Cost Savings</div>
+                            <div class="value">$5.9M</div>
+                        </div>
+                        <div class="savings-number">
+                            <div class="label">Time Savings</div>
+                            <div class="value">8-12 months</div>
+                        </div>
+                        <div class="savings-number">
+                            <div class="label">Headcount Savings</div>
+                            <div class="value">15-20 people</div>
+                        </div>
+                        <div class="savings-number">
+                            <div class="label">Cost Reduction</div>
+                            <div class="value">47%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Feature Comparison -->
+            <div class="section">
+                <h2 class="section-title">2. Platform Capabilities: H4U vs. Evrionta Requirements</h2>
+
+                <table class="feature-comparison">
+                    <thead>
+                        <tr>
+                            <th>Feature Category</th>
+                            <th>Evrionta Requirement</th>
+                            <th>H4U Status</th>
+                            <th>Development Needed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mobile Apps (iOS/Android)</strong></td>
+                            <td>Patient-facing native apps</td>
+                            <td><span class="status ready">Production Ready</span></td>
+                            <td>Minor UI adaptation for family medicine workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web Dashboard</strong></td>
+                            <td>Physician dashboard for care management</td>
+                            <td><span class="status ready">Production Ready</span></td>
+                            <td>Add family health network visualization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FHIR Integration</strong></td>
+                            <td>EHR data access via SMART on FHIR</td>
+                            <td><span class="status ready">Working</span></td>
+                            <td>Extend to bidirectional sync (write-back)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wearables Integration</strong></td>
+                            <td>Apple Health, Google Health sync</td>
+                            <td><span class="status ready">Production Ready</span></td>
+                            <td>No changes needed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voice Symptom Logging</strong></td>
+                            <td>Patient voice input for symptoms</td>
+                            <td><span class="status ready">Working</span></td>
+                            <td>Enhance NLP for chronic disease symptoms</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Medical Scribe</strong></td>
+                            <td>Automated clinical documentation from encounters</td>
+                            <td><span class="status ready">Production Ready</span></td>
+                            <td>Minor adaptation for family medicine workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clinical Decision Support</strong></td>
+                            <td>Evidence-based alerts and recommendations</td>
+                            <td><span class="status needs-dev">Basic</span></td>
+                            <td>Expand protocol library for diabetes, HTN, COPD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Family Health Network</strong></td>
+                            <td>Genetic risk analysis across family members</td>
+                            <td><span class="status missing">Not Built</span></td>
+                            <td><strong>NEW:</strong> Family graph, genetic risk modeling (4-5 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Care Team Coordination</strong></td>
+                            <td>Multi-provider collaboration tools</td>
+                            <td><span class="status needs-dev">Basic messaging</span></td>
+                            <td>Add shared care plans, task delegation (2-3 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pharma Engagement Layer</strong></td>
+                            <td>Sponsored content, CPM/CPC tracking</td>
+                            <td><span class="status missing">Not Built</span></td>
+                            <td><strong>NEW:</strong> Pharma partnership infrastructure (3-4 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commerce Marketplace</strong></td>
+                            <td>E-commerce for drugs, supplements, devices</td>
+                            <td><span class="status missing">Not Built</span></td>
+                            <td><strong>NEW:</strong> Marketplace platform (4-5 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RWE Data Infrastructure</strong></td>
+                            <td>De-identified longitudinal data products</td>
+                            <td><span class="status missing">Not Built</span></td>
+                            <td><strong>NEW:</strong> Data pipeline, API (3-4 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HIPAA Compliance</strong></td>
+                            <td>Full HIPAA-ready infrastructure</td>
+                            <td><span class="status needs-dev">Framework exists</span></td>
+                            <td>Audit, certification, BAA templates (2-3 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authentication & Security</strong></td>
+                            <td>SSO/OAuth, RBAC, audit logs</td>
+                            <td><span class="status ready">Working</span></td>
+                            <td>Add SMART on FHIR auto-launch</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LLM Integration</strong></td>
+                            <td>Multi-model AI (OpenAI, Anthropic, Llama)</td>
+                            <td><span class="status ready">Anthropic API working</span></td>
+                            <td>Add model abstraction layer for multi-LLM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 3: Detailed Budget Breakdown -->
+            <div class="section">
+                <h2 class="section-title">3. Detailed Budget Breakdown: Build from Scratch vs. H4U Adaptation</h2>
+
+                <div class="category-breakdown">
+                    <div class="category-card">
+                        <h4>Development - Build from Scratch</h4>
+                        <div class="budget-item">
+                            <span>Core Platform (full-stack)</span>
+                            <span>$4.5M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Mobile Apps (iOS + Android)</span>
+                            <span>$1.2M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>FHIR/EHR Integration</span>
+                            <span>$800K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>AI Infrastructure</span>
+                            <span>$600K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Pharma/Marketplace/RWE</span>
+                            <span>$1.5M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span><strong>Total Development</strong></span>
+                            <span><strong>$8.6M</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h4>Development - H4U Adaptation</h4>
+                        <div class="budget-item">
+                            <span>Core Platform Enhancement</span>
+                            <span>$2.0M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Mobile Apps (ready)</span>
+                            <span>$0</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>AI Medical Scribe (ready)</span>
+                            <span>$0</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>FHIR Integration (ready)</span>
+                            <span>$0</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Pharma/Marketplace/RWE</span>
+                            <span>$1.4M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span><strong>Total Development</strong></span>
+                            <span><strong>$3.4M</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h4>Other Costs - From Scratch</h4>
+                        <div class="budget-item">
+                            <span>Marketing & Growth</span>
+                            <span>$1.5M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Compliance & Legal</span>
+                            <span>$1.2M</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Free Tier Costs</span>
+                            <span>$300K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Contingency (10%)</span>
+                            <span>$900K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span><strong>Total Other</strong></span>
+                            <span><strong>$3.9M</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h4>Other Costs - H4U Adaptation</h4>
+                        <div class="budget-item">
+                            <span>Marketing & Growth</span>
+                            <span>$800K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Compliance & Legal</span>
+                            <span>$900K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Free Tier Costs</span>
+                            <span>$150K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Thumbay Integration</span>
+                            <span>$450K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>Contingency (10%)</span>
+                            <span>$710K</span>
+                        </div>
+                        <div class="budget-item">
+                            <span><strong>Total Other</strong></span>
+                            <span><strong>$3.2M</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div class="card">
+                        <h3>Total Build from Scratch</h3>
+                        <div class="metric">
+                            <span class="metric-label">Total Seed Funding</span>
+                            <span class="metric-value">$12.5M</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Timeline</span>
+                            <span class="metric-value">18-24 months</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Monthly Burn</span>
+                            <span class="metric-value">$650K</span>
+                        </div>
+                    </div>
+
+                    <div class="card highlight">
+                        <h3>Total H4U Adaptation</h3>
+                        <div class="metric">
+                            <span class="metric-label">Total Seed Funding</span>
+                            <span class="metric-value savings">$6.6M</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Timeline</span>
+                            <span class="metric-value savings">10-12 months</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Monthly Burn</span>
+                            <span class="metric-value savings">$550K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Timeline Comparison -->
+            <div class="section">
+                <h2 class="section-title">4. Development Timeline Comparison</h2>
+
+                <h3 style="margin-top: 30px; margin-bottom: 20px; color: #2d3748;">Build from Scratch Timeline (18-24 months)</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1-6</div>
+                        <div class="timeline-content">
+                            <h4>Months 1-6: Foundation Development</h4>
+                            <p><strong>Activities:</strong> Backend infrastructure, database design, authentication, basic APIs, mobile app frameworks</p>
+                            <p><strong>Team:</strong> 15-20 engineers</p>
+                            <p><strong>Deliverable:</strong> Basic platform skeleton, no clinical features</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">7-12</div>
+                        <div class="timeline-content">
+                            <h4>Months 7-12: Core Features</h4>
+                            <p><strong>Activities:</strong> FHIR integration, patient dashboard, wearables sync, basic AI features</p>
+                            <p><strong>Team:</strong> 25-30 people</p>
+                            <p><strong>Deliverable:</strong> MVP with basic clinical workflows</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">13-18</div>
+                        <div class="timeline-content">
+                            <h4>Months 13-18: Advanced Features</h4>
+                            <p><strong>Activities:</strong> AI Medical Scribe, Family Health Network, Clinical Decision Support</p>
+                            <p><strong>Team:</strong> 35-40 people</p>
+                            <p><strong>Deliverable:</strong> Full Evrionta feature set</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">19-24</div>
+                        <div class="timeline-content">
+                            <h4>Months 19-24: Monetization & Scale</h4>
+                            <p><strong>Activities:</strong> Pharma infrastructure, marketplace, RWE data pipeline, compliance certifications</p>
+                            <p><strong>Team:</strong> 40+ people</p>
+                            <p><strong>Deliverable:</strong> Commercial-ready platform</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 50px; margin-bottom: 20px; color: #2d3748;">H4U Adaptation Timeline (12-15 months)</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1-3</div>
+                        <div class="timeline-content">
+                            <h4>Months 1-3: Thumbay Pilot Setup</h4>
+                            <p><strong>Activities:</strong> H4U platform adaptation, Arabic localization, Thumbay EMR integration, pilot with 10 врачей</p>
+                            <p><strong>Team:</strong> 13 people</p>
+                            <p><strong>Deliverable:</strong> Working pilot in Thumbay hospitals (UAE)</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4-6</div>
+                        <div class="timeline-content">
+                            <h4>Months 4-6: Feature Enrichment</h4>
+                            <p><strong>Activities:</strong> Family Health Network, Care Team Coordination, expanded Thumbay rollout to 100 врачей (AI Scribe already working)</p>
+                            <p><strong>Team:</strong> 18 people</p>
+                            <p><strong>Deliverable:</strong> Evrionta core features validated in GCC</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">7-10</div>
+                        <div class="timeline-content">
+                            <h4>Months 7-10: GCC Expansion & Monetization</h4>
+                            <p><strong>Activities:</strong> Saudi market entry, pharma infrastructure, marketplace soft launch, first pharma pilot contracts</p>
+                            <p><strong>Team:</strong> 20 people</p>
+                            <p><strong>Deliverable:</strong> 200 врачей across GCC, $80K MRR, proven business model</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">11-12</div>
+                        <div class="timeline-content">
+                            <h4>Months 11-12: Series A Preparation</h4>
+                            <p><strong>Activities:</strong> RWE data products launch, USA market soft launch, Series A materials</p>
+                            <p><strong>Team:</strong> 20 people</p>
+                            <p><strong>Deliverable:</strong> $150K MRR ($1.8M ARR), 300 врачей (GCC + USA), Seed round complete, Series A materials ready</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI and Market Validation -->
+            <div class="section">
+                <h2 class="section-title">Market Validation & ROI Analysis</h2>
+
+                <div style="padding: 25px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 25px;">
+                    <h3 style="color: #1a202c; margin-bottom: 15px; font-size: 1.4rem;">Comparable Valuations (2025-2026 Market Data)</h3>
+                    <div style="color: #4a5568; font-size: 1.05rem; line-height: 1.8;">
+                        <p><strong>AI Medical Scribe Category:</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 15px;">
+                            <li>Abridge: $5.3B valuation (Series E, $300M round)</li>
+                            <li>Suki: $168M total funding raised (Series D $70M)</li>
+                            <li>Freed: 25,000+ clinicians, $99/month pricing model</li>
+                        </ul>
+
+                        <p><strong>Healthcare AI Benchmarks:</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 15px;">
+                            <li>Median Series A valuation: >$50M</li>
+                            <li>Median Series B valuation: $143M</li>
+                            <li>Average round size: $34.4M (83% premium vs non-AI startups)</li>
+                            <li>AI-focused deals: 75% of all health tech funding in 2025</li>
+                        </ul>
+
+                        <p><strong>Clinical AI Platforms:</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 15px;">
+                            <li>Hippocratic AI: $1.64B valuation (Series B, $141M round)</li>
+                            <li>OpenEvidence: $3.5B valuation ($210M round)</li>
+                        </ul>
+
+                        <p><strong>Chronic Disease Management:</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 15px;">
+                            <li>Virta Health: $2B valuation (Series E) at $100M ARR</li>
+                            <li>Omada Health: $1.2B at IPO (2025) with 679K members</li>
+                            <li>Livongo: Acquired by Teladoc for $18.5B (2020)</li>
+                        </ul>
+
+                        <p><strong>Real-World Evidence Market:</strong></p>
+                        <ul style="margin-left: 25px;">
+                            <li>Market size: $4.74B (2024) → $10.83B (2030)</li>
+                            <li>CAGR: 14.8%</li>
+                            <li>Key players: Tempus, Flatiron Health, Komodo Health</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="padding: 25px; background: white; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <h3 style="color: #1a202c; margin-bottom: 15px; font-size: 1.4rem;">Evrionta Valuation Projections & ROI</h3>
+                    <div style="color: #4a5568; font-size: 1.05rem; line-height: 1.8;">
+                        <p style="margin-bottom: 15px;"><strong>Seed Round (Months 0-12):</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 20px;">
+                            <li>Investment: $6.6M</li>
+                            <li>Post-money valuation: $35-50M</li>
+                            <li>Target metrics: 300 врачей, $1.8M ARR ($150K MRR)</li>
+                        </ul>
+
+                        <p style="margin-bottom: 15px;"><strong>Series A (Months 18-24):</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 20px;">
+                            <li>Projected valuation: $120-180M</li>
+                            <li>Target metrics: 800-1,200 врачей, $5-10M ARR</li>
+                            <li>Rationale: Above median for AI healthcare ($50M+), validated traction with strategic partner</li>
+                        </ul>
+
+                        <p style="margin-bottom: 15px;"><strong>Series B (Months 30-36):</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 20px;">
+                            <li>Projected valuation: $500M-800M</li>
+                            <li>Target metrics: 2,500 врачей, $30M ARR</li>
+                            <li>Rationale: Network effects proven, comparable to Virta ($2B at $100M ARR), multiple revenue streams</li>
+                        </ul>
+
+                        <p style="margin-bottom: 15px;"><strong>ROI for Seed Investor:</strong></p>
+                        <ul style="margin-left: 25px; margin-bottom: 20px;">
+                            <li>15-25x return by Series B (24-36 months)</li>
+                            <li>Exit scenarios: Acquisition at $1-2B (Epic, Cerner, Optum) or IPO at $2-4B</li>
+                        </ul>
+
+                        <p style="font-size: 0.95rem; font-style: italic; color: #2d3748; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                            * Projections based on 2025-2026 market comparables: AI healthcare median Series A >$50M, Series B $143M;
+                            comparable valuations include Virta $2B, Hippocratic AI $1.64B, Abridge $5.3B. Evrionta combines
+                            AI Medical Scribe + Clinical Decision Support + RWE + Chronic Disease Management in a single platform
+                            with FREE tier and network effects moat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Summary -->
+            <div class="section">
+                <h2 class="section-title">Key Advantages of H4U Platform Approach</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h3>De-risked Execution</h3>
+                        <p>H4U platform already in production with apps published on App Store and Google Play. No infrastructure build risk.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Faster Time to Market</h3>
+                        <p>10-12 months vs. 18-24 months. 8-12 months competitive advantage. AI Medical Scribe already production-ready.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Lower Capital Requirements</h3>
+                        <p>$6.6M vs. $12.5M for Seed round. 47% capital efficiency improvement, higher ROI for investors.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Thumbay Strategic Partnership</h3>
+                        <p>100+ врачей captive pilot base, GCC market access, pharmacy distribution, university research partnership.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Proven Technical Foundation</h3>
+                        <p>FHIR integration working, wearables sync production-ready, mobile apps tested with real users.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Smaller Team, Higher Focus</h3>
+                        <p>20 people vs. 35-40 people. Leaner team with clear focus on Evrionta-specific features. AI Medical Scribe already built and tested.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
