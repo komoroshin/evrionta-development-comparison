@@ -483,12 +483,20 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                padding: 30px 20px;
+            }
+
             header h1 {
                 font-size: 1.6rem;
             }
 
             .content {
                 padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
             }
 
             .month-row {
@@ -502,6 +510,34 @@
 
             .savings-numbers {
                 grid-template-columns: 1fr;
+            }
+
+            .budget-table,
+            .feature-comparison {
+                font-size: 0.8rem;
+                display: block;
+                overflow-x: auto;
+            }
+
+            .budget-table th,
+            .budget-table td,
+            .feature-comparison th,
+            .feature-comparison td {
+                padding: 10px;
+            }
+
+            .timeline-marker {
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+
+            .timeline-content {
+                padding: 20px;
+            }
+
+            div[style*="grid-template-columns: repeat(4, 1fr)"] {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
